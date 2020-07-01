@@ -1,5 +1,11 @@
 package com.kebo.springboot_jpa.po;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -9,22 +15,28 @@ import java.util.Date;
  * @create: 2020-03-22 10:37
  **/
 @Entity
-@Table(name="user")
+@Table(name = "user")
+@EntityListeners(AuditingEntityListener.class)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(value = "用户id", example = "1000")
     private Long Id;
-
+    @ApiModelProperty(value = "用户姓名", example = "柯博")
     private String name;
-
+    @ApiModelProperty(value = "用户年龄", example = "23")
     private Integer age;
-
+    @ApiModelProperty(value = "用户email", example = "249183617@qq.com")
     private String email;
-
+    @ApiModelProperty(value = "创建时间")
+    @CreatedDate  //填充字段
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")  //时间格式,时区选择
     private Date createTime;
-
+    @ApiModelProperty(value = "修改时间")
+    @LastModifiedDate
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")  //时间格式,时区选择
     private Date updateTime;
-
+    @ApiModelProperty(value = "版本", example = "1")
     private Integer version;
 
     public Long getId() {
@@ -86,8 +98,8 @@ public class User {
     public User() {
     }
 
-    public User(Long Id,String name, Integer age, String email, Date createTime, Date updateTime, Integer version) {
-        this.Id=Id;
+    public User(Long Id, String name, Integer age, String email, Date createTime, Date updateTime, Integer version) {
+        this.Id = Id;
         this.name = name;
         this.age = age;
         this.email = email;

@@ -12,7 +12,7 @@ import java.util.List;
  * @author: kb
  * @create: 2020-03-22 10:42
  **/
-public interface UserDao extends JpaRepository<User, Integer>,JpaSpecificationExecutor<User> {
+public interface UserDao extends JpaRepository<User, Long>,JpaSpecificationExecutor<User> {
 
     @Query(value="select * from user where name = ?",nativeQuery=true)
     List<User> queryUserByNameSQL(String name);
