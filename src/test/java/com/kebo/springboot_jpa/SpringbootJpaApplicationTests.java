@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -91,11 +92,16 @@ class SpringbootJpaApplicationTests {
 			}
 
 		};
-		//Sort sort = new Sort(Sort.Direction.DESC,"userid");
-		PageRequest pageRequest = PageRequest.of(0, 2);
-		Page<User> page = this.userDao.findAll(spec, pageRequest);
-		System.out.println(page.getContent());
+
+		List<User> list = this.userDao.findAll(spec,Sort.by(Sort.Direction.DESC,"age"));
+		System.out.println(list);
 	}
 
+	@Test
+	public void test(){
+		int num = 2147483647 ;
+		long temp = num + 2L ;
+		System.out.println(num) ;
+	}
 
 }
